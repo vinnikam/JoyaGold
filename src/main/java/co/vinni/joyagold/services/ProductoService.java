@@ -28,7 +28,10 @@ public class ProductoService {
     public List<ProductoDto> getAll() {
         List<Producto> productosList = productoRepository.findAll();
         TypeToken<List<ProductoDto>> typeToken = new TypeToken<>() {};
-        return  modelMapper.map(productosList, typeToken.getType());
+        List<ProductoDto> listaordenada =   modelMapper.map(productosList, typeToken.getType());
+        listaordenada.sort((ProductoDto s1, ProductoDto s2)->s1.getNombre().toUpperCase().compareTo(s2.getNombre().toUpperCase()));
+        return listaordenada;
+
     }
     @Transactional
     public ProductoDto create(ProductoDto productoDto) {
